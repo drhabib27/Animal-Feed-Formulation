@@ -1,0 +1,164 @@
+﻿[
+    {
+        "id":  "barley",
+        "name":  "Barley",
+        "dm":  "100",
+        "cp":  "11.3",
+        "cf":  "5.4",
+        "cfat":  "1.9",
+        "me_poultry":  "4380"
+    },
+    {
+        "id":  "maize",
+        "name":  "Maize",
+        "dm":  "100",
+        "cp":  "8.8",
+        "cf":  "2.6",
+        "cfat":  "4.1",
+        "me_poultry":  "4450"
+    },
+    {
+        "id":  "maize_extruded",
+        "name":  "Maize, extruded",
+        "dm":  "100",
+        "cp":  "8.8",
+        "cf":  "2.6",
+        "cfat":  "4.1",
+        "me_poultry":  "4450"
+    },
+    {
+        "id":  "maize_flaked",
+        "name":  "Maize, flaked",
+        "dm":  "100",
+        "cp":  "8.8",
+        "cf":  "2.6",
+        "cfat":  "4.1",
+        "me_poultry":  "4450"
+    },
+    {
+        "id":  "maize_high_moisture",
+        "name":  "Maize, high moisture",
+        "dm":  "100",
+        "cp":  "9.2",
+        "cf":  "2.6",
+        "cfat":  "3.9",
+        "me_poultry":  "4440"
+    },
+    {
+        "id":  "millet_pearl",
+        "name":  "Millet, pearl",
+        "dm":  "100",
+        "cp":  "12.5",
+        "cf":  "3.2",
+        "cfat":  "4.8",
+        "me_poultry":  "4560"
+    },
+    {
+        "id":  "millet_proso",
+        "name":  "Millet, proso",
+        "dm":  "100",
+        "cp":  "14.2",
+        "cf":  "7.4",
+        "cfat":  "5.6",
+        "me_poultry":  "4610"
+    },
+    {
+        "id":  "oat_groats",
+        "name":  "Oat groats",
+        "dm":  "100",
+        "cp":  "12.8",
+        "cf":  "4.5",
+        "cfat":  "3.1",
+        "me_poultry":  "4500"
+    },
+    {
+        "id":  "oats",
+        "name":  "Oats",
+        "dm":  "100",
+        "cp":  "10.8",
+        "cf":  "13.1",
+        "cfat":  "5.4",
+        "me_poultry":  "4650"
+    },
+    {
+        "id":  "oats_flaked",
+        "name":  "Oats, flaked",
+        "dm":  "100",
+        "cp":  "10.8",
+        "cf":  "13.1",
+        "cfat":  "5.4",
+        "me_poultry":  "4650"
+    },
+    {
+        "id":  "rice_brown",
+        "name":  "Rice, brown",
+        "dm":  "100",
+        "cp":  "10.5",
+        "cf":  "2.4",
+        "cfat":  "2.8",
+        "me_poultry":  "4380"
+    },
+    {
+        "id":  "rice_paddy",
+        "name":  "Rice, paddy",
+        "dm":  "100",
+        "cp":  "8.5",
+        "cf":  "11",
+        "cfat":  "2.5",
+        "me_poultry":  "4240"
+    },
+    {
+        "id":  "rice_polished_broken",
+        "name":  "Rice, polished, broken",
+        "dm":  "100",
+        "cp":  "9.2",
+        "cf":  "0.6",
+        "cfat":  "1.3",
+        "me_poultry":  "4300"
+    },
+    {
+        "id":  "rye",
+        "name":  "Rye",
+        "dm":  "100",
+        "cp":  "9.8",
+        "cf":  "2.3",
+        "cfat":  "1.4",
+        "me_poultry":  "4290"
+    },
+    {
+        "id":  "sorghum",
+        "name":  "Sorghum",
+        "dm":  "100",
+        "cp":  "10.6",
+        "cf":  "2.8",
+        "cfat":  "3.3",
+        "me_poultry":  "4480"
+    },
+    {
+        "id":  "triticale",
+        "name":  "Triticale",
+        "dm":  "100",
+        "cp":  "11.5",
+        "cf":  "2.9",
+        "cfat":  "1.4",
+        "me_poultry":  "4320"
+    },
+    {
+        "id":  "wheat_durum",
+        "name":  "Wheat, durum",
+        "dm":  "100",
+        "cp":  "16.4",
+        "cf":  "3",
+        "cfat":  "2",
+        "me_poultry":  "4420"
+    },
+    {
+        "id":  "wheat_soft",
+        "name":  "Wheat, soft",
+        "dm":  "100",
+        "cp":  "12.6",
+        "cf":  "2.7",
+        "cfat":  "1.6",
+        "me_poultry":  "4350"
+    }
+]

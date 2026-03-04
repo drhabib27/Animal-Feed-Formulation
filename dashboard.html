@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaFeed - Dashboard</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .org-card {
+            background: var(--surface);
+            border: 1px solid var(--border-bright);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .org-card:hover {
+            border-color: var(--primary);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="glass"
+        style="position: sticky; top: 0; z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; border-radius: 0; border-top: none; border-left: none; border-right: none;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i data-lucide="hexagon" style="color: var(--primary);"></i>
+            <span style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em;">NOVA<span
+                    style="color: var(--primary);">FEED</span> Workspace</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <span id="user-greeting"
+                style="font-size: 0.875rem; font-weight: 500; color: var(--text-secondary);"></span>
+            <button onclick="logout()" class="btn btn-outline" style="padding: 0.4rem 0.8rem; font-size: 0.75rem;">Sign
+                Out</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container" style="padding-top: 3rem;">
+
+        <!-- Global Actions -->
+        <div
+            style="margin-bottom: 3rem; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+            <a href="master-database.html" style="text-decoration: none;">
+                <div class="glass"
+                    style="padding: 1.5rem; display: flex; align-items: center; gap: 1rem; cursor: pointer; border: 1px solid var(--border-bright); transition: all 0.2s;">
+                    <div
+                        style="background: rgba(59, 130, 246, 0.1); color: #3b82f6; padding: 1rem; border-radius: 0.75rem;">
+                        <i data-lucide="database" style="width: 24px; height: 24px;"></i>
+                    </div>
+                    <div>
+                        <h3
+                            style="font-size: 1.125rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">
+                            Master Ingredient Database</h3>
+                        <p style="font-size: 0.875rem; color: var(--text-secondary);">Manage the 250+ global feed
+                            templates</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+            <div>
+                <h1 style="font-size: 2rem; font-weight: 700; color: var(--text-primary); margin-bottom: 0.25rem;">Your
+                    Organizations</h1>
+                <p style="color: var(--text-secondary); font-size: 0.875rem;">Select a client or farm to manage their
+                    feed formulations.</p>
+            </div>
+            <button onclick="createNewOrg()" class="btn btn-primary">
+                <i data-lucide="plus" style="width: 18px; height: 18px;"></i> New Organization
+            </button>
+        </div>
+
+        <div id="org-list"
+            style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem;">
+            <!-- Rendered via JS -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+
+        // Mock Authentication & Data Check
+        const userStr = localStorage.getItem('novafeed_user');
+        if (!userStr) window.location.href = 'login.html';
+        const user = JSON.parse(userStr);
+        document.getElementById('user-greeting').innerText = 'Welcome, ' + user.name;
+
+        function getOrgs() {
+            return JSON.parse(localStorage.getItem('novafeed_orgs') || '[]');
+        }
+
+        function renderOrgs() {
+            const orgs = getOrgs();
+            const container = document.getElementById('org-list');
+
+            if (orgs.length === 0) {
+                container.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 4rem 2rem; background: var(--surface); border: 1px dashed var(--border-bright); border-radius: 1rem;">
+                        <i data-lucide="building" style="width: 48px; height: 48px; color: var(--text-muted); margin-bottom: 1rem;"></i>
+                        <h3 style="font-size: 1.25rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">No Organizations Found</h3>
+                        <p style="color: var(--text-secondary); margin-bottom: 1.5rem; max-width: 400px; margin-left: auto; margin-right: auto;">Get started by creating your first client or farm workspace. Formulations and custom ingredients are stored securely within each organization.</p>
+                        <button onclick="createNewOrg()" class="btn btn-primary" style="padding: 0.75rem 1.5rem;">Create Organization</button>
+                    </div>
+                `;
+                lucide.createIcons();
+                return;
+            }
+
+            container.innerHTML = orgs.map(org => `
+                <div class="org-card" onclick="openOrg('${org.id}', '${org.name}')">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1rem;">
+                        <div style="display: flex; align-items: center; justify-content: center; width: 40px; height: 40px; background: rgba(22, 163, 74, 0.1); color: var(--primary); border-radius: 0.5rem; font-weight: 700;">
+                            ${org.name.charAt(0).toUpperCase()}
+                        </div>
+                        <span style="font-size: 0.75rem; color: var(--text-muted);">${org.formulasCount || 0} Formulas</span>
+                    </div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.25rem;">${org.name}</h3>
+                    <p style="font-size: 0.875rem; color: var(--text-secondary);">Created ${new Date(org.createdAt).toLocaleDateString()}</p>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        function createNewOrg() {
+            const name = prompt("Enter Organization/Farm Name:");
+            if (name && name.trim() !== '') {
+                const orgs = getOrgs();
+                const newOrg = {
+                    id: 'org_' + Date.now(),
+                    name: name.trim(),
+                    createdAt: new Date().toISOString(),
+                    formulasCount: 0
+                };
+                orgs.push(newOrg);
+                localStorage.setItem('novafeed_orgs', JSON.stringify(orgs));
+                renderOrgs();
+            }
+        }
+
+        function openOrg(id, name) {
+            localStorage.setItem('novafeed_active_org', JSON.stringify({ id, name }));
+            window.location.href = 'formulator.html';
+        }
+
+        function logout() {
+            localStorage.removeItem('novafeed_user');
+            window.location.href = 'index.html';
+        }
+
+        renderOrgs();
+    </script>
+</body>
+
+</html>

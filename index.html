@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaFeed - Future of Animal Nutrition Solutions</title>
+    <meta name="description"
+        content="Next-generation animal nutrition software for least-cost feed formulation using global industry standards.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- JavaScript files -->
+    <script src="https://unpkg.com/javascript-lp-solver"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="feedtables_data.js"></script>
+    <!-- Append timestamp to break browser cache so new script loads immediately -->
+    <script>
+        document.write('<script src="app.js?v=' + new Date().getTime() + '"><\/script>');
+    </script>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="glass"
+        style="position: fixed; top: 1rem; left: 50%; transform: translateX(-50%); width: calc(100% - 2rem); max-width: 1200px; z-index: 1000; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <i data-lucide="hexagon" style="color: var(--primary);"></i>
+            <span style="font-weight: 700; font-size: 1.25rem; letter-spacing: -0.025em;">NOVA<span
+                    style="color: var(--primary);">FEED</span></span>
+        </div>
+        <div style="display: flex; gap: 2rem; font-weight: 500; font-size: 0.9rem;">
+            <a href="#hero" style="color: var(--text-primary); text-decoration: none;">Home</a>
+            <a href="#formulator" style="color: var(--text-secondary); text-decoration: none;">Formulator</a>
+            <a href="#tables" style="color: var(--text-secondary); text-decoration: none;">Feed Tables</a>
+        </div>
+        <button class="btn btn-primary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">Get Started</button>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero"
+        style="min-height: 100vh; display: flex; align-items: center; position: relative; overflow: hidden;">
+        <!-- Background Glow -->
+        <div
+            style="position: absolute; width: 600px; height: 600px; background: radial-gradient(circle, rgba(37, 99, 235, 0.15) 0%, transparent 70%); top: -200px; right: -200px; z-index: -1;">
+        </div>
+        <div
+            style="position: absolute; width: 400px; height: 400px; background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%); bottom: -100px; left: -100px; z-index: -1;">
+        </div>
+
+        <div class="container" style="display: grid; grid-template-columns: 1.2fr 1fr; gap: 4rem; align-items: center;">
+            <div class="animate-fade-in">
+                <span
+                    style="display: inline-block; padding: 0.25rem 0.75rem; background: rgba(37, 99, 235, 0.1); border: 1px solid rgba(37, 99, 235, 0.2); border-radius: 2rem; color: var(--primary); font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem;">The
+                    Future of Feed Solutions</span>
+                <h1 class="text-gradient"
+                    style="font-size: 4.5rem; line-height: 1.1; font-weight: 800; margin-bottom: 1.5rem; letter-spacing: -0.05em;">
+                    Intelligent Feed <br> Formulation Engine</h1>
+                <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2.5rem; max-width: 540px;">
+                    Step into the future of animal nutrition. NovaFeed uses advanced algorithms integrated with global
+                    standard datasets to deliver precision, least-cost rations for all species.</p>
+
+                <!-- Animal Icons/Images Context -->
+                <div style="display: flex; gap: 1.5rem; margin-bottom: 2.5rem;">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--surface-glass); padding: 0.5rem 1rem; border-radius: 2rem; border: 1px solid var(--border); transition: transform 0.2s; cursor: pointer;"
+                        onmouseover="this.style.transform='translateY(-2px)'"
+                        onmouseout="this.style.transform='translateY(0)'">
+                        <img src="https://images.unsplash.com/photo-1548435297-c86cdbdabacb?auto=format&fit=crop&q=80&w=40&h=40"
+                            alt="Poultry" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
+                        <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-primary);">Poultry</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--surface-glass); padding: 0.5rem 1rem; border-radius: 2rem; border: 1px solid var(--border); transition: transform 0.2s; cursor: pointer;"
+                        onmouseover="this.style.transform='translateY(-2px)'"
+                        onmouseout="this.style.transform='translateY(0)'">
+                        <img src="https://images.unsplash.com/photo-1516467508483-a7212febe31a?auto=format&fit=crop&q=80&w=40&h=40"
+                            alt="Swine" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
+                        <span style="font-size: 0.875rem; font-weight: 500; color: var(--text-primary);">Swine</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem; background: var(--surface-glass); padding: 0.5rem 1rem; border-radius: 2rem; border: 1px solid var(--border); transition: transform 0.2s; cursor: pointer;"
+                        onmouseover="this.style.transform='translateY(-2px)'"
+                        onmouseout="this.style.transform='translateY(0)'">
+                        <img src="https://images.unsplash.com/photo-1570042225831-d98fa7577f1e?auto=format&fit=crop&q=80&w=40&h=40"
+                            alt="Ruminant" style="width: 28px; height: 28px; border-radius: 50%; object-fit: cover;">
+                        <span
+                            style="font-size: 0.875rem; font-weight: 500; color: var(--text-primary);">Ruminants</span>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 1rem;">
+                    <a href="login.html" class="btn btn-primary" style="padding: 1rem 2rem; font-size: 1.125rem;">Sign
+                        In / Get Started <i data-lucide="arrow-right"></i></a>
+                </div>
+            </div>
+
+            <div class="animate-fade-in" style="position: relative; animation-delay: 0.2s;">
+                <div class="glass-card"
+                    style="padding: 2rem; border-radius: 2rem; border: 1px solid var(--border-bright);">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 2rem;">
+                        <div>
+                            <p style="font-size: 0.875rem; color: var(--text-secondary);">Optimization Engine</p>
+                            <p style="font-weight: 600; font-size: 1.25rem;">Least-Cost Solution</p>
+                        </div>
+                        <div style="padding: 0.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 0.5rem;">
+                            <i data-lucide="trending-down" style="color: var(--secondary);"></i>
+                        </div>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.875rem;">Crude Protein</span>
+                                <span style="font-size: 0.875rem; color: var(--secondary);">22.4%</span>
+                            </div>
+                            <div style="height: 6px; background: rgba(255,255,255,0.05); border-radius: 3px;">
+                                <div
+                                    style="width: 85%; height: 100%; background: var(--secondary); border-radius: 3px; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);">
+                                </div>
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <span style="font-size: 0.875rem;">Metabolizable Energy</span>
+                                <span style="font-size: 0.875rem; color: var(--primary);">2950 kcal/kg</span>
+                            </div>
+                            <div style="height: 6px; background: rgba(0,0,0,0.05); border-radius: 3px;">
+                                <div
+                                    style="width: 70%; height: 100%; background: var(--primary); border-radius: 3px; box-shadow: 0 0 10px rgba(22, 163, 74, 0.4);">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass"
+                    style="position: absolute; top: -1rem; right: -1rem; padding: 1rem; border-radius: 1rem; text-align: center;">
+                    <p style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.25rem;">Active
+                        Ingredients</p>
+                    <p style="font-weight: 700; font-size: 1.5rem; color: var(--primary);">250+</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="container" style="padding-top: 2rem;">
+        <div style="margin-bottom: 4rem; text-align: center;">
+            <span
+                style="display: inline-block; padding: 0.25rem 0.75rem; background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.2); border-radius: 2rem; color: var(--secondary); font-size: 0.875rem; font-weight: 600; margin-bottom: 1.5rem;">Flexible
+                Plans</span>
+            <h2 class="text-gradient" style="font-size: 3rem; font-weight: 700; margin-bottom: 1rem;">Pricing Options
+            </h2>
+            <p style="color: var(--text-secondary); font-size: 1.1rem;">Choose the perfect plan for your formulation
+                needs. From pay-as-you-go to unlimited precision.</p>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; align-items: center;">
+            <!-- Day Passes -->
+            <div class="glass-card" style="padding: 3rem 2rem; border-radius: 1.5rem; position: relative;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Day Passes</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; min-height: 48px;">Perfect for occasional
+                    use and targeted formulations.</p>
+                <div style="margin-bottom: 2rem;">
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 0.5rem;">
+                        <span style="font-weight: 600;">1 Formula</span>
+                        <span style="font-size: 2rem; font-weight: 800; color: var(--primary);">$10</span>
+                    </div>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: baseline; padding-top: 1rem; border-top: 1px solid var(--border);">
+                        <span>
+                            <span style="font-weight: 600; display: block;">2-5 Formulas</span>
+                            <span style="font-size: 0.8rem; color: var(--secondary);">20% Discount Applied</span>
+                        </span>
+                        <span style="font-size: 2rem; font-weight: 800; color: var(--primary);">$8<span
+                                style="font-size: 1rem; color: var(--text-secondary); font-weight: 500;">/ea</span></span>
+                    </div>
+                </div>
+                <ul
+                    style="list-style: none; padding: 0; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> Full nutritional details</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> Detailed nutrient charts</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> Valid for 24 hours</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;">Select Pass</button>
+            </div>
+
+            <!-- Monthly -->
+            <div class="glass-card"
+                style="padding: 3rem 2rem; border-radius: 1.5rem; background: linear-gradient(180deg, rgba(22, 163, 74, 0.05) 0%, var(--surface) 100%); border-color: rgba(22, 163, 74, 0.3); transform: scale(1.05); position: relative; z-index: 10; box-shadow: var(--shadow-xl);">
+                <div
+                    style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--primary); color: white; padding: 0.25rem 1rem; border-radius: 1rem; font-size: 0.8rem; font-weight: 600;">
+                    POPULAR</div>
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Monthly Setup</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; min-height: 48px;">Unlimited formulas for
+                    growing farms and nutritionists.</p>
+                <div style="margin-bottom: 2rem;">
+                    <span style="font-size: 3.5rem; font-weight: 800; color: var(--text-primary);">$100</span>
+                    <span style="color: var(--text-secondary);">/month</span>
+                </div>
+                <ul
+                    style="list-style: none; padding: 0; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--primary); width: 20px;"></i> <strong>Unlimited formulations</strong>
+                    </li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--primary); width: 20px;"></i> Save & export formulas</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--primary); width: 20px;"></i> Custom ingredient pricing</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--primary); width: 20px;"></i> Priority email support</li>
+                </ul>
+                <button class="btn btn-primary" style="width: 100%;">Subscribe Monthly</button>
+            </div>
+
+            <!-- Yearly -->
+            <div class="glass-card" style="padding: 3rem 2rem; border-radius: 1.5rem; position: relative;">
+                <h3 style="font-size: 1.5rem; font-weight: 600; margin-bottom: 0.5rem;">Yearly Pro</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 2rem; min-height: 48px;">Best value for
+                    professional mills and large operations.</p>
+                <div style="margin-bottom: 2rem;">
+                    <span style="font-size: 3.5rem; font-weight: 800; color: var(--text-primary);">$800</span>
+                    <span style="color: var(--text-secondary);">/year</span>
+                    <p style="color: var(--accent); font-size: 0.875rem; font-weight: 600; margin-top: 0.5rem;">Save
+                        $400 annually (33% off)</p>
+                </div>
+                <ul
+                    style="list-style: none; padding: 0; margin-bottom: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> All Monthly Features</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> Advanced multi-blend optimization</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> API integrations</li>
+                    <li style="display: flex; gap: 0.75rem; align-items: center;"><i data-lucide="check"
+                            style="color: var(--secondary); width: 20px;"></i> 24/7 Phone support</li>
+                </ul>
+                <button class="btn btn-outline" style="width: 100%;">Subscribe Yearly</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer
+        style="background: var(--surface); padding: 4rem 2rem 2rem; margin-top: 6rem; border-top: 1px solid var(--border);">
+        <div class="container"
+            style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 4rem; margin-bottom: 4rem;">
+            <div style="grid-column: span 2;">
+                <div style="display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem;">
+                    <i data-lucide="hexagon" style="color: var(--primary); width: 32px; height: 32px;"></i>
+                    <span style="font-weight: 700; font-size: 1.5rem; letter-spacing: -0.025em;">NOVA<span
+                            style="color: var(--primary);">FEED</span></span>
+                </div>
+                <p style="color: var(--text-secondary); line-height: 1.6; max-width: 400px; margin-bottom: 1.5rem;">
+                    The future of animal nutrition. Leveraging advanced linear programming and robust, global datasets
+                    to deliver optimal, least-cost feed formulation software for modern agriculture.
+                </p>
+                <div style="display: flex; gap: 1rem;">
+                    <a href="#" style="color: var(--text-secondary); transition: color 0.2s;"><i data-lucide="twitter"
+                            style="width: 20px; height: 20px;"></i></a>
+                    <a href="#" style="color: var(--text-secondary); transition: color 0.2s;"><i data-lucide="linkedin"
+                            style="width: 20px; height: 20px;"></i></a>
+                    <a href="#" style="color: var(--text-secondary); transition: color 0.2s;"><i data-lucide="github"
+                            style="width: 20px; height: 20px;"></i></a>
+                </div>
+            </div>
+
+            <div>
+                <h4 style="font-weight: 600; font-size: 1rem; margin-bottom: 1.5rem; color: var(--text-primary);">
+                    Solutions</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Poultry
+                            Formulation</a></li>
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Swine
+                            Nutrition</a></li>
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Ruminant
+                            Diets</a></li>
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Aquafeed
+                            Optimization</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <h4 style="font-weight: 600; font-size: 1rem; margin-bottom: 1.5rem; color: var(--text-primary);">
+                    Resources</h4>
+                <ul style="list-style: none; padding: 0; display: flex; flex-direction: column; gap: 0.75rem;">
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Global
+                            Database</a></li>
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Standard
+                            Tables</a></li>
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">Documentation</a>
+                    </li>
+                    <li><a href="#"
+                            style="color: var(--text-secondary); text-decoration: none; transition: color 0.2s;">API
+                            Access</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="container"
+            style="display: flex; justify-content: space-between; align-items: center; padding-top: 2rem; border-top: 1px solid var(--border);">
+            <p style="color: var(--text-muted); font-size: 0.875rem;">&copy; 2026 NovaFeed Solutions. All rights
+                reserved.</p>
+            <div style="display: flex; gap: 1.5rem;">
+                <a href="#" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none;">Privacy
+                    Policy</a>
+                <a href="#" style="color: var(--text-muted); font-size: 0.875rem; text-decoration: none;">Terms of
+                    Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <!-- app.js is now loaded in the head with cache busting -->
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
+</body>
+
+</html>

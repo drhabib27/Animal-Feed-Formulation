@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NovaFeed - Login</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS -->
+    <link rel="stylesheet" href="style.css">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+
+<body
+    style="min-height: 100vh; display: flex; align-items: center; justify-content: center; background: url('https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&q=80&w=1920&h=1080') center/cover no-repeat; position: relative;">
+    <!-- Background Overlay -->
+    <div
+        style="position: absolute; top:0; left:0; right:0; bottom:0; background: rgba(248, 250, 252, 0.85); backdrop-filter: blur(10px); z-index: 0;">
+    </div>
+
+    <div class="glass-card animate-fade-in"
+        style="width: 100%; max-width: 440px; padding: 3rem 2.5rem; position: relative; z-index: 1;">
+        <div style="text-align: center; margin-bottom: 2.5rem;">
+            <div
+                style="display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem;">
+                <i data-lucide="hexagon" style="color: var(--primary); width: 32px; height: 32px;"></i>
+                <span
+                    style="font-weight: 700; font-size: 1.75rem; letter-spacing: -0.025em; color: var(--text-primary);">NOVA<span
+                        style="color: var(--primary);">FEED</span></span>
+            </div>
+            <h1 style="font-size: 1.25rem; font-weight: 600; color: var(--text-secondary);">Enterprise Nutrition
+                Software</h1>
+        </div>
+
+        <form onsubmit="handleLogin(event)" style="display: flex; flex-direction: column; gap: 1.5rem;">
+            <div>
+                <label
+                    style="display: block; font-size: 0.875rem; font-weight: 600; color: var(--text-primary); margin-bottom: 0.5rem;">Email
+                    Address</label>
+                <input type="email" id="login-email" required placeholder="name@company.com"
+                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-bright); border-radius: 0.5rem; outline: none; transition: all 0.2s; font-size: 1rem;">
+            </div>
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <label style="font-size: 0.875rem; font-weight: 600; color: var(--text-primary);">Password</label>
+                    <a href="#" style="font-size: 0.75rem; color: var(--primary); text-decoration: none;">Forgot
+                        password?</a>
+                </div>
+                <input type="password" id="login-password" required placeholder="••••••••"
+                    style="width: 100%; padding: 0.75rem 1rem; border: 1px solid var(--border-bright); border-radius: 0.5rem; outline: none; transition: all 0.2s; font-size: 1rem;">
+            </div>
+
+            <button type="submit" class="btn btn-primary"
+                style="width: 100%; padding: 1rem; font-size: 1rem; margin-top: 0.5rem;">Sign In to Workspace</button>
+        </form>
+
+        <p style="text-align: center; margin-top: 2rem; font-size: 0.875rem; color: var(--text-secondary);">
+            Don't have an account? <a href="#"
+                style="color: var(--primary); font-weight: 600; text-decoration: none;">Contact Sales</a>
+        </p>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        lucide.createIcons();
+        function handleLogin(e) {
+            e.preventDefault();
+            const email = document.getElementById('login-email').value;
+            // Mock Login: Save simple token
+            localStorage.setItem('novafeed_user', JSON.stringify({ email: email, name: email.split('@')[0] }));
+            window.location.href = 'dashboard.html';
+        }
+    </script>
+</body>
+
+</html>
