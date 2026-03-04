@@ -137,3 +137,35 @@ section {
 .animate-fade-in {
     animation: fadeIn 0.8s ease forwards;
 }
+
+/* Feedsoft Excel-like Table styles */
+.feedsoft-table {
+    font-size: 0.85rem;
+}
+.feedsoft-table th {
+    padding: 0.75rem 0.5rem;
+    color: var(--text-secondary);
+    font-weight: 600;
+    border-bottom: 2px solid var(--border-bright);
+    white-space: nowrap;
+}
+.feedsoft-table td {
+    border-bottom: 1px solid var(--border);
+}
+.table-input {
+    background: transparent;
+    border: 1px solid transparent;
+    color: var(--text-primary);
+    border-radius: 0.25rem;
+    outline: none;
+    transition: all 0.2s;
+}
+.table-input:hover {
+    background: rgba(0,0,0,0.02);
+    border-color: var(--border-bright);
+}
+.table-input:focus {
+    background: var(--surface);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 2px rgba(22, 163, 74, 0.1);
+}

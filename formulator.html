@@ -86,9 +86,25 @@
                     <!-- Categories will be injected here -->
                 </div>
 
-                <div id="ingredients-list"
-                    style="display: flex; flex-direction: column; gap: 0.75rem; margin-bottom: 1rem; max-height: 500px; overflow-y: auto; padding-right: 0.5rem;">
-                    <!-- Ingredients will be injected here -->
+                <div style="margin-bottom: 1rem; max-height: 500px; overflow-y: auto; overflow-x: auto; border: 1px solid var(--border-bright); border-radius: 0.5rem; background: var(--surface);">
+                    <table class="feedsoft-table" id="ingredients-table" style="width: 100%; min-width: 800px; border-collapse: collapse;">
+                        <thead style="position: sticky; top: 0; background: var(--surface); box-shadow: 0 1px 2px rgba(0,0,0,0.05); z-index: 5;">
+                            <tr>
+                                <th style="width: 40px; text-align: center;"><input type="checkbox" id="select-all-ings" onchange="toggleAllIngredients(this.checked)" style="accent-color: var(--primary);"></th>
+                                <th style="text-align: left;">Ingredient</th>
+                                <th style="text-align: right; width: 90px;">Price ($)</th>
+                                <th style="text-align: right; width: 80px;">Min(%)</th>
+                                <th style="text-align: right; width: 80px;">Max(%)</th>
+                                <th style="text-align: right; width: 90px; color: var(--primary);">Usage(%)</th>
+                                <th style="text-align: right; width: 90px; color: var(--secondary);">Batch(kg)</th>
+                                <th style="text-align: right; width: 90px; color: var(--text-primary);">Cost($)</th>
+                                <th style="width: 40px; text-align: center;"></th>
+                            </tr>
+                        </thead>
+                        <tbody id="ingredients-list">
+                            <!-- Ingredients will be injected here -->
+                        </tbody>
+                    </table>
                 </div>
 
                 <!-- Add Ingredient Form -->
@@ -172,8 +188,12 @@
             <div id="requirements-list" style="display: flex; flex-direction: column; gap: 1.25rem;">
                 <!-- Requirements inputs will be injected here -->
             </div>
+            <div style="margin-top: 1.5rem; background: var(--surface-hover); padding: 1rem; border-radius: 0.5rem; display: flex; align-items: center; justify-content: space-between;">
+                <span style="font-weight: 600; font-size: 0.9rem; color: var(--text-primary);">Total Batch Size (kg)</span>
+                <input type="number" id="batch-size-input" value="1000" style="width: 100px; text-align: right; padding: 0.5rem; border: 1px solid var(--border-bright); border-radius: 0.25rem; font-weight: 600; outline: none;">
+            </div>
             <button id="formulate-btn" class="btn btn-primary"
-                style="width: 100%; margin-top: 2rem; padding: 1rem; font-size: 1.125rem;">
+                style="width: 100%; margin-top: 1rem; padding: 1rem; font-size: 1.125rem;">
                 Optimize Formula <i data-lucide="cpu"></i>
             </button>
         </div>

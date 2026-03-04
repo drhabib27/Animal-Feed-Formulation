@@ -447,37 +447,44 @@ function setCategory(cat) {
 
 function renderIngredients() {
     const list = document.getElementById('ingredients-list');
+    if (!list) return;
 
     const displayedIngredients = activeCategory === 'All'
         ? ingredients
         : ingredients.filter(i => (i.category || 'Uncategorized') === activeCategory);
 
     list.innerHTML = displayedIngredients.map(ing => `
-        <div class="glass-card" style="padding: 1rem; display: flex; justify-content: space-between; align-items: center; border-radius: 0.75rem; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 0.5rem;">
-            <div style="display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 200px;">
-                <input type="checkbox" id="check-${ing.id}" ${ingredientChoices.includes(ing.id) ? 'checked' : ''} onchange="toggleIngredient('${ing.id}')" style="width: 1.1rem; height: 1.1rem; accent-color: var(--primary);">
-                <label for="check-${ing.id}" style="font-weight: 500; cursor: pointer;">${ing.name}</label>
-            </div>
-            
-            <div style="display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;">
-                <div style="display: flex; align-items: center; gap: 0.25rem;">
-                    <label style="font-size: 0.75rem; color: var(--text-secondary);">Min(%)</label>
-                    <input type="number" step="1" min="0" max="100" id="min-${ing.id}" value="${ing.min !== undefined ? ing.min : ''}" placeholder="0" onchange="updateIngredientLimit('${ing.id}', 'min', this.value)" style="width: 50px; text-align: right; background: var(--background); color: var(--text-primary); border: 1px solid var(--border-bright); padding: 0.25rem; border-radius: 0.25rem; font-size: 0.85rem; outline: none;">
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.25rem;">
-                    <label style="font-size: 0.75rem; color: var(--text-secondary);">Max(%)</label>
-                    <input type="number" step="1" min="0" max="100" id="max-${ing.id}" value="${ing.max !== undefined ? ing.max : ''}" placeholder="100" onchange="updateIngredientLimit('${ing.id}', 'max', this.value)" style="width: 50px; text-align: right; background: var(--background); color: var(--text-primary); border: 1px solid var(--border-bright); padding: 0.25rem; border-radius: 0.25rem; font-size: 0.85rem; outline: none;">
-                </div>
-                <div style="display: flex; align-items: center; gap: 0.25rem; border-left: 1px solid var(--border); padding-left: 1rem;">
-                    <span style="font-size: 0.85rem; color: var(--text-secondary);">$</span>
-                    <input type="number" step="0.01" value="${ing.price.toFixed(2)}" onchange="updateIngredientPrice('${ing.id}', this.value)" style="width: 70px; text-align: right; background: var(--background); color: var(--text-primary); border: 1px solid var(--border-bright); padding: 0.25rem; border-radius: 0.25rem; font-size: 0.85rem; outline: none;">
-                    <span style="font-size: 0.85rem; color: var(--text-secondary);">/kg</span>
-                </div>
-                <button type="button" class="btn btn-outline" style="padding: 0.25rem 0.5rem; font-size: 0.75rem;" onclick="openEditIngredientForm('${ing.id}')">
-                    <i data-lucide="edit-2" style="width: 14px; height: 14px;"></i>
+        <tr style="border-bottom: 1px solid var(--border-bright); background: ${ingredientChoices.includes(ing.id) ? 'rgba(16, 185, 129, 0.05)' : 'transparent'}; transition: background 0.2s;">
+            <td style="text-align: center; padding: 0.5rem;">
+                <input type="checkbox" id="check-${ing.id}" ${ingredientChoices.includes(ing.id) ? 'checked' : ''} onchange="toggleIngredient('${ing.id}')" style="accent-color: var(--primary);">
+            </td>
+            <td style="padding: 0.5rem; font-weight: 500; font-size: 0.85rem;">
+                <label for="check-${ing.id}" style="cursor: pointer; display: block; width: 100%; margin: 0;">${ing.name}</label>
+            </td>
+            <td style="padding: 0.5rem;">
+                <input type="number" step="0.01" value="${ing.price.toFixed(2)}" onchange="updateIngredientPrice('${ing.id}', this.value)" class="table-input" style="text-align: right; width: 100%; padding: 0.25rem;">
+            </td>
+            <td style="padding: 0.5rem;">
+                <input type="number" step="1" min="0" max="100" id="min-${ing.id}" value="${ing.min !== undefined ? ing.min : ''}" placeholder="" onchange="updateIngredientLimit('${ing.id}', 'min', this.value)" class="table-input" style="text-align: right; width: 100%; padding: 0.25rem;">
+            </td>
+            <td style="padding: 0.5rem;">
+                <input type="number" step="1" min="0" max="100" id="max-${ing.id}" value="${ing.max !== undefined ? ing.max : ''}" placeholder="" onchange="updateIngredientLimit('${ing.id}', 'max', this.value)" class="table-input" style="text-align: right; width: 100%; padding: 0.25rem;">
+            </td>
+            <td style="padding: 0.5rem; text-align: right; font-weight: 600; color: var(--primary); font-size: 0.85rem;" id="res-usage-${ing.id}">
+                -
+            </td>
+            <td style="padding: 0.5rem; text-align: right; font-weight: 600; color: var(--secondary); font-size: 0.85rem;" id="res-batch-${ing.id}">
+                -
+            </td>
+            <td style="padding: 0.5rem; text-align: right; font-weight: 600; color: var(--text-primary); font-size: 0.85rem;" id="res-cost-${ing.id}">
+                -
+            </td>
+            <td style="padding: 0.5rem; text-align: center;">
+                <button type="button" class="btn btn-outline" style="padding: 0.2rem 0.4rem; font-size: 0.7rem; border: none; background: transparent;" onclick="openEditIngredientForm('${ing.id}')">
+                    <i data-lucide="edit-2" style="width: 14px; height: 14px; color: var(--text-secondary);"></i>
                 </button>
-            </div>
-        </div>
+            </td>
+        </tr>
     `).join('');
     if (typeof lucide !== 'undefined') lucide.createIcons();
 }
@@ -537,6 +544,19 @@ function toggleIngredient(id) {
     } else {
         ingredientChoices.push(id);
     }
+    renderIngredients();
+}
+
+function toggleAllIngredients(checked) {
+    if (checked) {
+        const displayedIngredients = activeCategory === 'All'
+            ? ingredients
+            : ingredients.filter(i => (i.category || 'Uncategorized') === activeCategory);
+        ingredientChoices = displayedIngredients.map(i => i.id);
+    } else {
+        ingredientChoices = [];
+    }
+    renderIngredients();
 }
 
 function updateIngredientPrice(id, newPrice) {
@@ -777,25 +797,56 @@ function displayResults(result, activeIngredients) {
     resultsDiv.style.display = 'block';
     resultsDiv.scrollIntoView({ behavior: 'smooth' });
 
+    // Reset Table columns
+    ingredients.forEach(ing => {
+        const usageEl = document.getElementById(`res-usage-${ing.id}`);
+        const batchEl = document.getElementById(`res-batch-${ing.id}`);
+        const costEl = document.getElementById(`res-cost-${ing.id}`);
+        if(usageEl) usageEl.innerText = '-';
+        if(batchEl) batchEl.innerText = '-';
+        if(costEl) costEl.innerText = '-';
+    });
+
     if (!result.feasible) {
         formulaList.innerHTML = `<p style="color: #ef4444; font-weight: 600;">Infeasible Solution. Please adjust requirements or select more ingredients.</p>`;
         return;
     }
 
+    const batchInput = document.getElementById('batch-size-input');
+    const totalBatchSize = batchInput ? (parseFloat(batchInput.value) || 1000) : 1000;
+
     let html = '<div style="margin-bottom: 1.5rem;">';
     let rejectedHtml = '<div style="margin-top: 1.5rem; border-top: 1px solid var(--border); padding-top: 1.5rem;"><h4 style="font-size: 1rem; font-weight: 600; margin-bottom: 1rem; color: var(--text-secondary);">Rejected Ingredients</h4>';
     let hasRejected = false;
+    let totalComputedCost = 0;
 
     activeIngredients.forEach(ingredient => {
         const val = result[ingredient.id] || 0;
         if (val > 0) {
+            const usagePercent = val;
+            const batchKg = (usagePercent / 100) * totalBatchSize;
+            const cost = batchKg * ingredient.price;
+            totalComputedCost += cost;
+
+            // Update Table
+            const usageEl = document.getElementById(`res-usage-${ingredient.id}`);
+            const batchEl = document.getElementById(`res-batch-${ingredient.id}`);
+            const costEl = document.getElementById(`res-cost-${ingredient.id}`);
+            if(usageEl) usageEl.innerText = usagePercent.toFixed(2);
+            if(batchEl) batchEl.innerText = batchKg.toFixed(2);
+            if(costEl) costEl.innerText = cost.toFixed(2);
+
             html += `
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.75rem; border-bottom: 1px solid var(--border);">
                     <span style="font-weight: 500;">${ingredient.name}</span>
-                    <span style="font-weight: 700; color: var(--primary);">${val.toFixed(2)}%</span>
+                    <span style="font-weight: 700; color: var(--primary);">${usagePercent.toFixed(2)}%</span>
                 </div>
             `;
         } else {
+            // Check if there is a 0 usage update needed on table
+            const usageEl = document.getElementById(`res-usage-${ingredient.id}`);
+            if(usageEl) usageEl.innerText = "0.00";
+
             hasRejected = true;
             rejectedHtml += `
                 <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.75rem; background: var(--surface-hover); border-radius: 0.5rem; margin-bottom: 0.5rem;">
@@ -814,8 +865,8 @@ function displayResults(result, activeIngredients) {
 
     html += `
         <div style="margin-top: 1rem; padding: 1rem; background: rgba(16, 185, 129, 0.1); border-radius: 0.5rem; display: flex; justify-content: space-between;">
-            <span style="font-weight: 600;">Optimal Cost</span>
-            <span style="font-weight: 700; color: var(--secondary);">$${result.result.toFixed(2)} / 100kg</span>
+            <span style="font-weight: 600;">Optimal Cost (Batch)</span>
+            <span style="font-weight: 700; color: var(--secondary);">$${totalComputedCost.toFixed(2)} / ${totalBatchSize}kg</span>
         </div>
     `;
 
